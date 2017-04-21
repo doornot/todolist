@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>todolists-backbone</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="page page-main">
+        <header>
+            <h1>todolist</h1>
+        </header>
+        <section class="mainPanel">
+            <div class="inputWrap">
+                <input type="text" class="newTodo" placeholder="What needs to be done?" autofocus>
+                <input type="checkbox" class="toggleAll">
+            </div>
+            <ul class="todolists"></ul>
+            <div class="listStatus"></div>
+        </section>
+        <footer>
+            <p>Double-click to edit a todo <br> Written by Kevin Wang</p>
+        </footer>
+    </div>
+</body>
+<script type="text/template" id="tpl-todoItem">
+    <input type="checkbox" class="toggleSingle" <%= completed ? 'checked' : '' %>>
+    <span class="text readonly"><%= text %></span>
+    <input type="text" class="text editItem" value="<%= text %>">
+    <a href="javascript:;" class="delete">X</a>
+</script>
+<script type="text/template" id="tpl-todoStatus">
+    <div class="itemsLeft"><%= ongoingNum %> items left</div>
+    <ul class="statusList">
+        <li class="active"><a href="#/">All</a></li>
+        <li><a href="#/active">Active</a></li>
+        <li><a href="#/completed">Completed</a></li>
+    </ul>
+    <% if (completedNum > 0) { %>
+    <a href="javascript:;" class="clearCompleted">clear completed</a>
+    <% } %>
+</script>
+<script src="js/zepto.js"></script>
+<script src="js/underscore.js"></script>
+<script src="js/backbone.js"></script>
+<script src="js/backbone.localStorage.js"></script>
+<script src="js/model/todo.js"></script>
+<script src="js/collection/todos.js"></script>
+<script src="js/router/router.js"></script>
+<script src="js/view/todoItemView.js"></script>
+<script src="js/view/mainView.js"></script>
+<script src="js/app.js"></script>
+</html>
