@@ -16,15 +16,20 @@ var app = app || {};
         initialize: function() {
             this.listenTo(this.model, 'change', this.render);
             this.listenTo(this.model, 'destroy', this.remove);
+            this.listenTo(this.model, 'visible', this.toggleVisible);
         },
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
             this.$input = this.$('.editItem');
             this.$el.toggleClass('completed', this.model.get('completed'));
+            this.toggleVisible();
             return this;
         },
+        toggleVisible() {
+            var bool = (app.TodoFilter == 'active' && !this.model.get('completed')) || (app.TodoFilter == 'completed' && this.model.get('completed')) || app.TodoFilter == '';
+            this.$el.toggleClass('hide', !bool);
+        },
         toggleCompleted: function() {
-            // console.log(this.$input.checked);
             if (this.$input.checked) {
                 this.$el.addClass('completed');
             } else {

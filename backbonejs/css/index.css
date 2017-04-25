@@ -156,6 +156,8 @@ footer {
   .todolists li.completed .readonly {
     color: #ccc;
     text-decoration: line-through; }
+  .todolists li.hide {
+    display: none; }
 
 .listStatus {
   width: 100%;
@@ -174,16 +176,16 @@ footer {
     width: 200px;
     text-align: center; }
     .listStatus .statusList li {
-      padding: 0 5px;
       line-height: 20px;
       display: inline-block; }
       .listStatus .statusList li a {
+        padding: 0 5px;
         color: #999; }
+      .listStatus .statusList li a.active {
+        border: 1px solid #aaa;
+        border-radius: 3px; }
       .listStatus .statusList li:hover {
         cursor: pointer; }
-    .listStatus .statusList li.active {
-      border: 1px solid #aaa;
-      border-radius: 3px; }
   .listStatus .clearCompleted {
     float: left;
     color: #999;

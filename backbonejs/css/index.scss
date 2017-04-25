@@ -192,6 +192,9 @@ footer{
             text-decoration:line-through;
         }
     }
+    li.hide{
+        display:none;
+    }
 }
 .listStatus{
     width:100%;
@@ -211,19 +214,19 @@ footer{
         width:200px;
         text-align:center;
         li{
-            padding:0 5px;
             line-height:20px;
             display:inline-block;
             a{
+                padding:0 5px;
                 color:#999;
+            }
+            a.active{
+                border:1px solid #aaa;
+                border-radius:3px;
             }
             &:hover{
                 cursor:pointer;
             }
-        }
-        li.active{
-            border:1px solid #aaa;
-            border-radius:3px;
         }
     }
     .clearCompleted{

@@ -17,9 +17,10 @@
 
             this.listenTo(app.todos, 'add', this.addOne);
             this.listenTo(app.todos, 'reset', this.addAll);
-            this.listenTo(app.todos, 'change:completed', this.completedChange);
             this.listenTo(app.todos, 'all', _.debounce(this.render, 0));
-            app.todos.fetch({reset: true});
+            this.listenTo(app.todos, 'change:completed', this.filterOne);
+            this.listenTo(app.todos, 'filter', this.filterAll);
+            app.todos.fetch({reset: true}); // {reset: true}
         },
         render: function() {
             if (app.todos.length > 0) {
@@ -29,12 +30,21 @@
                     'completedNum': app.todos.completed().length,
                     'ongoingNum': app.todos.ongoing().length,
                 }));
+                this.$('.statusList li a')
+                .removeClass('active').filter('[href="#/' + app.TodoFilter + '"]')
+                .addClass('active');
             } else {
                 this.$todolists.hide();
                 this.$listStatus.hide();
             }
             this.$('.toggleAll')[0].checked = !app.todos.ongoing().length;
             return this;
+        },
+        filterOne(todo) {
+            todo.trigger('visible');
+        },
+        filterAll() {
+            app.todos.each(this.filterOne, this);
         },
         saveNewTodo: function(e) {
             if (e.keyCode === ENTER_KEY && this.$newTodo.val().trim()) {
@@ -54,7 +64,7 @@
             });
         },
         clearCompleted: function() {
-            console.log('clearCompleted');
+            _.invoke(app.todos.completed(), 'destroy');
         },
         addOne(todo) {
             var item = new app.TodoItemView({
@@ -65,9 +75,6 @@
         addAll() {
             this.$todolists.html('');
             app.todos.each(this.addOne, this);
-        },
-        completedChange() {
-            console.log('completedChange');
         },
     });
 })(Zepto);
